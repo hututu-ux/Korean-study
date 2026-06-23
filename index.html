@@ -3,164 +3,263 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>韩语学习</title>
+    <title>维他命韩语1 单词学习</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Noto+Sans+SC:wght@300;400;500&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;0,600;1,400&family=Noto+Serif+SC:wght@300;400;500&display=swap" rel="stylesheet">
     <style>
         :root{
-            --bg-main: #f8f5fc;
-            --text-dark: #221828;
-            --text-light: #665872;
-            --primary-purple: #a888c8;
-            --glass-bg: rgba(255,255,255,0.65);
-            --glass-border: rgba(255,255,0.9);
-            --shadow-soft: 0 4px 20px rgba(160, 130, 190, 0.12);
-            --tag1: #e9e2f5;
-            --tag2: #f9e7ec;
-            --tag3: #e7f2ee;
-            --tag4: #e8f4f6;
+            --paper: #f7f3ef;
+            --lavender-light: #e9e2ef;
+            --lavender-mid: #cbbdd6;
+            --lavender-dark: #705c88;
+            --text-brown: #44384e;
+            --text-pale: #827294;
+            --sticker-bg: rgba(255,252,255,0.72);
+            --line-purple: #b8a8d0;
+        }
+        *{
+            scrollbar-width: thin;
+            scrollbar-color: var(--lavender-dark) var(--paper);
         }
         body{
-            background-color: var(--bg-main);
-            background-image: radial-gradient(circle at 85% 30%, rgba(180,140,220,0.15) 0%, transparent 55%);
+            background-color: var(--paper);
+            background-image: 
+                radial-gradient(circle at 12% 20%, rgba(203,189,214,0.28) 0%, transparent 45%),
+                radial-gradient(circle at 88% 75%, rgba(184,168,208,0.22) 0%, transparent 50%);
             min-height: 100vh;
-            font-family: 'Noto Sans SC', sans-serif;
+            font-family: 'Noto Serif SC', serif;
+            color: var(--text-brown);
+            letter-spacing: 0.4px;
         }
-        .font-serif-big{
-            font-family: 'Playfair Display', serif;
+        .font-eng-vintage{
+            font-family: 'EB Garamond', serif;
+            font-style: italic;
         }
-        .glass-card{
-            background: var(--glass-bg);
-            backdrop-filter: blur(12px);
-            -webkit-backdrop-filter: blur(12px);
-            border: 1px solid var(--glass-border);
-            box-shadow: var(--shadow-soft);
-            border-radius: 18px;
+        .paper-card{
+            background: var(--sticker-bg);
+            border: 1px solid rgba(184,168,208,0.35);
+            box-shadow: 0 6px 22px rgba(112, 92, 136, 0.1);
+            border-radius: 16px;
+            position: relative;
+            overflow: hidden;
         }
-        .btn-dark{
-            background-color: var(--text-dark);
+        .paper-card::before{
+            content: "";
+            position: absolute;
+            width: 130px;
+            height: 130px;
+            background: radial-gradient(circle, rgba(203,189,214,0.25) 0%, transparent 70%);
+            top: -40px;
+            right: -30px;
+            z-index: 0;
+        }
+        .btn-purple{
+            background-color: var(--lavender-dark);
             color: white;
-            transition: 0.25s ease;
+            transition: 0.28 ease;
         }
-        .btn-dark:hover{
-            opacity: 0.85;
+        .btn-purple:hover{
+            opacity: 0.86;
         }
-        .btn-light{
-            background: rgba(255,255,0.7);
-            border: 1px solid rgba(180,140,220,0.25);
-            color: var(--text-dark);
+        .btn-pale{
+            background: rgba(233,226,239,0.65);
+            border: 1px solid var(--line-purple);
+            color: var(--lavender-dark);
         }
-        .tab-content{display:none;}
-        .tab-content.active{display:block;}
-        .bottom-tag{
+        .tag-nav{
             border-radius: 999px;
-            padding: 6px 14px;
+            padding: 7px 15px;
             font-size: 13px;
+        }
+        .page{display: none;}
+        .page.active{display: block;}
+        .deco-star{
+            position: absolute;
+            width: 12px;
+            height: 12px;
+            background: var(--lavender-mid);
+            clip-path: polygon(50% 0%, 61% 35%, 98% 35%, 68% 57%, 79% 91%, 50% 70%, 21% 91%, 32% 57%, 2% 35%, 39% 35%);
+        }
+        /* 单词库条目 匹配截图布局 */
+        .word-item{
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 14px 8px;
+            border-bottom: 1px solid rgba(184,168,208,0.2);
+        }
+        .word-item:last-child{
+            border-bottom: none;
+        }
+        .word-left .kr-text{
+            font-size: 18px;
+            color: var(--lavender-dark);
+            font-weight: 500;
+        }
+        .word-left .cn-text{
+            font-size: 13px;
+            color: var(--text-pale);
+            margin-top: 2px;
+        }
+        .word-right{
+            display: flex;
+            gap: 16px;
+            font-size: 14px;
+            color: var(--lavender-dark);
+        }
+        .word-right span{
+            cursor: pointer;
         }
     </style>
 </head>
-<body class="pb-24 px-4 md:px-8 lg:px-16">
-    <div class="max-w-6xl mx-auto pt-8 md:pt-12">
-        <header class="grid md:grid-cols-2 gap-8 items-center mb-12">
-            <div>
-                <p class="text-xs tracking-wide text-[#887699] mb-3 inline-block px-3 py-1 rounded-full bg-white/60">维他命韩语1 · 单词学习工具</p>
-                <h1 class="font-serif-big text-7xl md:text-8xl text-[#221828] leading-none">韩语学习</h1>
-                <p class="text-2xl text-[#9476bc] my-4 font-light">Easy Korean with vocabulary & dictation</p>
-                <p class="text-sm text-[#665872] max-w-md leading-relaxed mb-7">
-                    完整收录维他命韩语1 Read the Words全词汇，支持单词朗读、听写自测、收藏、错题，播报区分显示韩文/中文。
+<body class="pb-28">
+    <!-- 首页主页面 -->
+    <div id="page-home" class="page active px-5 md:px-10 pt-10 md:pt-16 max-w-6xl mx-auto relative">
+        <span class="deco-star" style="top:15px;right:8%"></span>
+        <span class="deco-star" style="top:40px;left:5%"></span>
+        <header class="grid md:grid-cols-2 gap-10 items-center mb-16">
+            <div class="paper-card p-7 relative z-10">
+                <p class="text-xs tracking-widest text-[var(--text-pale)] mb-4 inline-block px-3 py-1 rounded-full bg-[var(--lavender-light)]">维他命韩语1 · 单词集</p>
+                <h1 class="text-6xl md:text-7xl text-[var(--lavender-dark)] leading-relaxed font-medium">韩语学习</h1>
+                <p class="font-eng-vintage text-xl text-[var(--text-pale)] my-5">Korean Vocabulary & Dictation</p>
+                <p class="text-sm text-[var(--text-brown)] opacity-85 max-w-md leading-loose mb-8">
+                    可自主添加自定义单词；听写可选10/20题，答对单词本轮不再重复，全部完成后循环复习。
                 </p>
-                <div class="flex gap-4 flex-wrap">
-                    <button onclick="switchTab('wordList')" class="btn-dark px-6 py-3 rounded-full text-sm flex items-center gap-2">
-                        进入单词库 <span>→</span>
-                    </button>
-                    <button onclick="switchTab('dictation')" class="btn-light px-6 py-3 rounded-full text-sm">单词听写练习</button>
+                <div class="flex gap-5 flex-wrap">
+                    <button onclick="switchPage('page-word')" class="btn-purple px-7 py-3 rounded-full text-sm">单词词汇库 →</button>
+                    <button onclick="switchPage('page-dict')" class="btn-pale px-7 py-3 rounded-full text-sm">进入单词听写</button>
                 </div>
             </div>
-            <div class="grid grid-cols-2 gap-3">
-                <div onclick="switchTab('wordList')" class="glass-card p-4 cursor-pointer hover:scale-[1.02] transition-transform" style="background:rgba(233,226,245,0.7);">
-                    <p class="text-xs text-[#776294] mb-1">单词库</p>
-                    <p class="font-medium text-sm">完整课本词汇</p>
-                    <p class="text-[10px] text-[#887699] mt-1">朗读 / 搜索 / 收藏</p>
+            <div class="grid grid-cols-2 gap-4">
+                <div onclick="switchPage('page-word')" class="paper-card p-5 cursor-pointer hover:scale-[1.025] transition-transform relative z-10" style="background:rgba(233,226,239,0.6);">
+                    <p class="text-xs text-[var(--lavender-dark)] font-eng-vintage mb-2">Word List</p>
+                    <p class="font-medium">完整单词库</p>
+                    <p class="text-[11px] text-[var(--text-pale)] mt-2">自主添加新词/收藏</p>
                 </div>
-                <div onclick="switchTab('dictation')" class="glass-card p-4 cursor-pointer hover:scale-[1.02] transition-transform" style="background:rgba(249,231,236,0.7);">
-                    <p class="text-xs text-[#96627b] mb-1">单词听写</p>
-                    <p class="font-medium text-sm">分模式显示单词</p>
-                    <p class="text-[10px] text-[#a07086] mt-1">韩语模式只显示韩文</p>
+                <div onclick="switchPage('page-dict')" class="paper-card p-5 cursor-pointer hover:scale-[1.025] transition-transform relative z-10" style="background:rgba(242,230,237,0.6);">
+                    <p class="text-xs text-[#8c5e7f] font-eng-vintage mb-2">Dictation</p>
+                    <p class="font-medium">单词听写</p>
+                    <p class="text-[11px] text-[#996e8b] mt-2">可选10/20题，自动过滤已答对</p>
                 </div>
-                <div onclick="switchTab('collect')" class="glass-card p-4 cursor-pointer hover:scale-[1.02] transition-transform" style="background:rgba(231,242,238,0.7);">
-                    <p class="text-xs text-[#578a78] mb-1">我的收藏</p>
-                    <p class="font-medium text-sm">标记重点单词</p>
-                    <p class="text-[10px] text-[#699c8a] mt-1">本地永久保存</p>
+                <div onclick="switchPage('page-collect')" class="paper-card p-5 cursor-pointer hover:scale-[1.025] transition-transform relative z-10" style="background:rgba(228,238,236,0.6);">
+                    <p class="text-xs text-[#588279] font-eng-vintage mb-2">Collection</p>
+                    <p class="font-medium">我的收藏</p>
+                    <p class="text-[11px] text-[#68948b] mt-2">本地永久保存</p>
                 </div>
-                <div onclick="switchTab('error')" class="glass-card p-4 cursor-pointer hover:scale-[1.02] transition-transform" style="background:rgba(232,244,246,0.7);">
-                    <p class="text-xs text-[#4e8890] mb-1">错题本</p>
-                    <p class="font-medium text-sm">自动收纳错题</p>
-                    <p class="text-[10px] text-[#609ca4] mt-1">反复巩固薄弱词</p>
+                <div onclick="switchPage('page-error')" class="paper-card p-5 cursor-pointer hover:scale-[1.025] transition-transform relative z-10" style="background:rgba(230,240,244,0.6);">
+                    <p class="text-xs text-[#4f7c86] font-eng-vintage mb-2">Error Book</p>
+                    <p class="font-medium">错题本</p>
+                    <p class="text-[11px] text-[#5c8c96] mt-2">手动添加错题巩固</p>
                 </div>
             </div>
         </header>
-        <main>
-            <div id="wordList" class="tab-content active">
-                <div class="glass-card p-5 md:p-7">
-                    <div class="flex justify-between items-center mb-5 flex-wrap gap-3">
-                        <span class="text-lg font-medium text-[#221828]">维他命韩语1 · 全词汇表</span>
-                        <input type="text" id="searchInput" placeholder="搜索韩文 / 中文" class="bg-white/70 border border-purple-200 rounded-full px-4 py-2 text-sm w-full md:w-1/3 outline-none focus:border-[#a888c8]" oninput="renderWordList()">
-                    </div>
-                    <div id="wordBox" class="space-y-2 max-h-[60vh] overflow-y-auto pr-2"></div>
-                </div>
-            </div>
-            <div id="dictation" class="tab-content mt-8">
-                <div class="glass-card p-5 md:p-7 max-w-2xl mx-auto">
-                    <div class="text-lg font-medium text-[#221828] mb-4">单词听写练习</div>
-                    <div class="flex gap-4 text-sm mb-6 flex-wrap text-[#554466]">
-                        <label class="flex items-center gap-2 cursor-pointer">
-                            <input type="radio" name="voiceMode" value="kor" checked class="accent-[#a888c8]"> 只播报韩语（页面显示韩文）
-                        </label>
-                        <label class="flex items-center gap-2 cursor-pointer">
-                            <input type="radio" name="voiceMode" value="cn" class="accent-[#a888c8]"> 只播报中文（页面显示释义）
-                        </label>
-                        <label class="flex items-center gap-2 cursor-pointer">
-                            <input type="radio" name="voiceMode" value="all" class="accent-[#a888c8]"> 中韩双语播报（页面显示释义）
-                        </label>
-                    </div>
-                    <div class="bg-white/50 rounded-2xl p-8 text-center">
-                        <p id="answerTip" class="text-xl font-bold h-10"></p>
-                        <input type="text" id="userInput" class="w-full rounded-full border border-purple-200 bg-white/80 p-4 mt-5 text-lg text-center outline-none focus:border-[#a888c8]" placeholder="输入韩文或中文释义">
-                        <div class="flex gap-3 justify-center mt-6 flex-wrap">
-                            <button onclick="getRandomWord()" class="btn-dark px-5 py-2.5 rounded-full text-sm">下一题</button>
-                            <button onclick="checkAnswer()" class="bg-green-500 text-white px-5 py-2.5 rounded-full text-sm hover:opacity-85 transition">确认答案</button>
-                            <button onclick="replayVoice()" class="bg-white/70 border border-gray-200 px-5 py-2.5 rounded-full text-sm">重播发音</button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div id="collect" class="tab-content mt-8">
-                <div class="glass-card p-5 md:p-7 max-w-2xl mx-auto">
-                    <div class="text-lg font-medium text-[#221828] mb-4">我的收藏单词</div>
-                    <div id="collectBox" class="space-y-2 max-h-[60vh] overflow-y-auto pr-2"></div>
-                </div>
-            </div>
-            <div id="error" class="tab-content mt-8">
-                <div class="glass-card p-5 md:p-7 max-w-2xl mx-auto">
-                    <div class="text-lg font-medium text-[#221828] mb-4">错题本</div>
-                    <div id="errorBox" class="space-y-2 max-h-[60vh] overflow-y-auto pr-2"></div>
-                </div>
-            </div>
-        </main>
-        <footer class="fixed bottom-0 left-0 right-0 bg-white/70 backdrop-blur-md py-3 border-t border-purple-100">
-            <div class="max-w-6xl mx-auto px-4 flex gap-2 justify-center flex-wrap">
-                <span onclick="switchTab('wordList')" class="bottom-tag cursor-pointer" style="background:var(--tag1);color:#654b88;">单词库</span>
-                <span onclick="switchTab('dictation')" class="bottom-tag cursor-pointer" style="background:var(--tag2);color:#925772;">单词听写</span>
-                <span onclick="switchTab('collect')" class="bottom-tag cursor-pointer" style="background:var(--tag3);color:#487c6a;">我的收藏</span>
-                <span onclick="switchTab('error')" class="bottom-tag cursor-pointer" style="background:var(--tag4);color:#3d7981;">错题本</span>
-            </div>
-        </footer>
     </div>
+
+    <!-- 单词库页面（含添加新词模块+截图同款排版） -->
+    <div id="page-word" class="page px-5 pt-10 max-w-6xl mx-auto">
+        <div class="paper-card p-6 md:p-8">
+            <div class="flex justify-between items-center mb-6 flex-wrap gap-3">
+                <span class="text-lg font-medium text-[var(--lavender-dark)]">维他命韩语1 · 全词汇表 <span class="font-eng-vintage text-sm ml-2">Word List</span></span>
+                <button onclick="switchPage('page-home')" class="text-sm text-[var(--lavender-dark)] font-eng-vintage">← Back Home</button>
+            </div>
+            <!-- 自主添加新词区域 -->
+            <div class="flex flex-wrap gap-3 mb-5 p-4 rounded-xl bg-[rgba(233,226,239,0.4)]">
+                <input id="newKrInput" placeholder="输入韩文单词" class="flex-1 min-w-[140px] rounded-full border border-[var(--line-purple)] px-4 py-2 text-sm outline-none">
+                <input id="newCnInput" placeholder="输入中文释义" class="flex-1 min-w-[140px] rounded-full border border-[var(--line-purple)] px-4 py-2 text-sm outline-none">
+                <button onclick="addCustomWord()" class="btn-purple px-5 py-2 rounded-full text-sm whitespace-nowrap">添加单词</button>
+            </div>
+            <input type="text" id="searchInput" placeholder="清空搜索框查看全部单词 / 输入韩文中文检索" class="w-full bg-[var(--sticker-bg)] border border-[var(--line-purple)] rounded-full px-4 py-3 text-sm mb-5 outline-none focus:border-[var(--lavender-dark)]" oninput="renderWordList()">
+            <!-- 单词列表容器 -->
+            <div id="wordBox" class="border border-[var(--line-purple)] rounded-xl overflow-hidden max-h-[62vh] overflow-y-auto"></div>
+        </div>
+    </div>
+
+    <!-- 听写独立页面（新增题量选择10/20） -->
+    <div id="page-dict" class="page px-4 pt-12 max-w-2xl mx-auto relative">
+        <span class="deco-star" style="top:20px;right:12%"></span>
+        <span class="deco-star" style="bottom:30%;left:3%"></span>
+        <div class="paper-card p-7 md:p-10 relative z-10">
+            <div class="flex justify-between items-center mb-6">
+                <div>
+                    <div class="text-xl font-medium text-[var(--lavender-dark)]">单词听写练习</div>
+                    <div class="font-eng-vintage text-sm text-[var(--text-pale)] mt-1">Vocabulary Dictation</div>
+                </div>
+                <button onclick="switchPage('page-home')" class="text-sm text-[var(--lavender-dark)] font-eng-vintage">← Back Home</button>
+            </div>
+            <!-- 题量选择区域 -->
+            <div class="mb-6 p-4 rounded-xl bg-[rgba(233,226,239,0.4)]">
+                <p class="text-sm mb-3 text-[var(--lavender-dark)]">选择今日听写题量：</p>
+                <div class="flex gap-4">
+                    <button onclick="setDictCount(10)" id="cnt10Btn" class="btn-pale px-6 py-2 rounded-full">10 题</button>
+                    <button onclick="setDictCount(20)" id="cnt20Btn" class="btn-purple px-6 py-2 rounded-full">20 题</button>
+                </div>
+                <p class="text-xs mt-2 text-[var(--text-pale)]">当前选择：<span id="currentCountText">20</span> 题；答对单词本轮不再重复，全部完成后循环复习</p>
+            </div>
+            <!-- 播报模式选择 -->
+            <div class="flex gap-4 text-sm mb-8 flex-wrap text-[var(--text-brown)]">
+                <label class="flex items-center gap-2 cursor-pointer">
+                    <input type="radio" name="voiceMode" value="kor" checked class="accent-[var(--lavender-dark)]">
+                    <span>只播报韩语（播报显示韩文）</span>
+                </label>
+                <label class="flex items-center gap-2 cursor-pointer">
+                    <input type="radio" name="voiceMode" value="cn" class="accent-[var(--lavender-dark)]">
+                    <span>只播报中文（播报显示中文）</span>
+                </label>
+                <label class="flex items-center gap-2 cursor-pointer">
+                    <input type="radio" name="voiceMode" value="all" class="accent-[var(--lavender-dark)]">
+                    <span>中韩双语播报（播报显示中文）</span>
+                </label>
+            </div>
+            <div class="bg-[rgba(255,255,255,0.55)] rounded-xl p-10 text-center border border-dashed border-[var(--line-purple)]">
+                <p id="answerTip" class="text-2xl md:text-3xl font-medium h-14 text-[var(--lavender-dark)]"></p>
+                <button id="addErrBtn" onclick="addCurrentToError()" class="hidden mt-3 bg-rose-400 text-white px-4 py-2 rounded-full text-sm">将该词加入错题本</button>
+                <input type="text" id="userInput" class="w-full rounded-full border border-[var(--line-purple)] bg-[var(--sticker-bg)] p-4 mt-8 text-lg text-center outline-none focus:border-[var(--lavender-dark)]" placeholder="输入韩文或中文释义">
+                <div class="flex gap-4 justify-center mt-8 flex-wrap">
+                    <button onclick="getRandomWord()" class="btn-purple px-6 py-3 rounded-full text-sm">下一题 Next</button>
+                    <button onclick="checkAnswer()" class="bg-emerald-600 text-white px-6 py-3 rounded-full text-sm hover:opacity-85 transition">确认答案 Check</button>
+                    <button onclick="replayVoice()" class="btn-pale px-6 py-3 rounded-full text-sm">重播发音 Replay</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 收藏页面 -->
+    <div id="page-collect" class="page px-5 pt-10 max-w-6xl mx-auto">
+        <div class="paper-card p-6 md:p-8">
+            <div class="flex justify-between items-center mb-6">
+                <div class="text-lg font-medium text-[var(--lavender-dark)]">我的收藏 <span class="font-eng-vintage text-sm ml-2">Collection</span></div>
+                <button onclick="switchPage('page-home')" class="text-sm text-[var(--lavender-dark)] font-eng-vintage">← Back Home</button>
+            </div>
+            <div id="collectBox" class="border border-[var(--line-purple)] rounded-xl overflow-hidden max-h-[62vh] overflow-y-auto"></div>
+        </div>
+    </div>
+
+    <!-- 错题本页面 -->
+    <div id="page-error" class="page px-5 pt-10 max-w-6xl mx-auto">
+        <div class="paper-card p-6 md:p-8">
+            <div class="flex justify-between items-center mb-6">
+                <div class="text-lg font-medium text-[var(--lavender-dark)]">错题本 <span class="font-eng-vintage text-sm ml-2">Error Notebook</span></div>
+                <button onclick="switchPage('page-home')" class="text-sm text-[var(--lavender-dark)] font-eng-vintage">← Back Home</button>
+            </div>
+            <div id="errorBox" class="border border-[var(--line-purple)] rounded-xl overflow-hidden max-h-[62vh] overflow-y-auto"></div>
+        </div>
+    </div>
+
+    <!-- 底部全局导航 -->
+    <footer class="fixed bottom-0 left-0 right-0 bg-[var(--sticker-bg)] backdrop-blur-md py-4 border-t border-[var(--line-purple)] z-50">
+        <div class="max-w-6xl mx-auto px-5 flex gap-3 justify-center flex-wrap">
+            <span onclick="switchPage('page-word')" class="tag-nav cursor-pointer" style="background:var(--lavender-light);color:var(--lavender-dark);">单词库 WordList</span>
+            <span onclick="switchPage('page-dict')" class="tag-nav cursor-pointer" style="background:rgba(242,230,237,0.7);color:#8c5e7f;">听写 Dictation</span>
+            <span onclick="switchPage('page-collect')" class="tag-nav cursor-pointer" style="background:rgba(228,238,236,0.7);color:#4f7c72;">收藏 Collect</span>
+            <span onclick="switchPage('page-error')" class="tag-nav cursor-pointer" style="background:rgba(230,240,244,0.7);color:#3f727c;">错题 Error</span>
+        </div>
+    </footer>
+
 <script>
-const wordData = [
-    // 新增指定单词
+// 基础内置词库
+const baseWordData = [
     {kr:"오",cn:"五"},
     {kr:"이",cn:"二、牙齿"},
     {kr:"아이",cn:"小孩"},
@@ -176,7 +275,6 @@ const wordData = [
     {kr:"머리",cn:"头、头发"},
     {kr:"모자",cn:"帽子"},
     {kr:"소",cn:"牛、小"},
-    // 韩文字母看图词汇
     {kr:"커피",cn:"咖啡"},
     {kr:"스키",cn:"滑雪板"},
     {kr:"토끼",cn:"兔子"},
@@ -235,7 +333,6 @@ const wordData = [
     {kr:"뒤",cn:"后面"},
     {kr:"무릎",cn:"膝盖"},
     {kr:"있다",cn:"有、在"},
-    // 单元2 问候自我介绍
     {kr:"안녕하세요",cn:"你好"},
     {kr:"안녕히 가세요",cn:"再见（对方离开）"},
     {kr:"안녕히 계세요",cn:"再见（你离开）"},
@@ -286,7 +383,6 @@ const wordData = [
     {kr:"경찰관",cn:"警察"},
     {kr:"미용사",cn:"理发师"},
     {kr:"요리사",cn:"厨师"},
-    // 单元3 时间数字
     {kr:"하나",cn:"1"},{kr:"둘",cn:"2"},{kr:"셋",cn:"3"},{kr:"넷",cn:"4"},{kr:"다섯",cn:"5"},
     {kr:"여섯",cn:"6"},{kr:"일곱",cn:"7"},{kr:"여덟",cn:"8"},{kr:"아홉",cn:"9"},{kr:"열",cn:"10"},
     {kr:"한 시",cn:"一点"},{kr:"두 시",cn:"两点"},{kr:"열 시 오십 분",cn:"十点五十分"},
@@ -297,7 +393,6 @@ const wordData = [
     {kr:"지난 주",cn:"上周"},{kr:"이번 주",cn:"这周"},{kr:"다음 주",cn:"下周"},
     {kr:"등산하다",cn:"爬山"},{kr:"여행하다",cn:"旅行"},{kr:"낚시하다",cn:"钓鱼"},{kr:"책 읽다",cn:"看书"},
     {kr:"영화 보다",cn:"看电影"},{kr:"쇼핑하다",cn:"购物"},{kr:"샤워하다",cn:"洗澡"},
-    // 单元4 场所方位
     {kr:"위",cn:"上面"},{kr:"아래",cn:"下面"},{kr:"앞",cn:"前面"},{kr:"뒤",cn:"后面"},
     {kr:"안",cn:"里面"},{kr:"밖",cn:"外面"},{kr:"옆",cn:"旁边"},{kr:"사이",cn:"中间"},
     {kr:"교실",cn:"教室"},{kr:"문",cn:"门"},{kr:"창문",cn:"窗户"},{kr:"칠판",cn:"黑板"},
@@ -308,27 +403,38 @@ const wordData = [
     {kr:"편의점",cn:"便利店"},{kr:"서점",cn:"书店"},{kr:"은행",cn:"银行"},
     {kr:"우체국",cn:"邮局"},{kr:"영화관",cn:"电影院"},
     {kr:"오른쪽",cn:"右边"},{kr:"왼쪽",cn:"左边"},{kr:"건너편",cn:"对面"},
-    // 单元5 季节未来
     {kr:"봄",cn:"春天"},{kr:"여름",cn:"夏天"},{kr:"가을",cn:"秋天"},{kr:"겨울",cn:"冬天"},
     {kr:"덥다",cn:"热"},{kr:"춥다",cn:"冷"},{kr:"맑다",cn:"晴朗"},{kr:"흐리다",cn:"阴天"},
     {kr:"비가 오다",cn:"下雨"},{kr:"눈이 오다",cn:"下雪"},
     {kr:"노래 부르다",cn:"唱歌"},{kr:"춤추다",cn:"跳舞"},{kr:"기타 치다",cn:"弹吉他"},
     {kr:"그림 그리다",cn:"画画"},{kr:"사진 찍다",cn:"拍照"},{kr:"배드민턴 치다",cn:"打羽毛球"},
     {kr:"게임 하다",cn:"玩游戏"},{kr:"인터넷 하다",cn:"上网"},
-    {kr:"산책하다",cn:"散步"},{kr:"술 마시다",cn:"喝酒"},{kr:"요리 먹다",cn:"吃料理"},
+    {kr:"산책하다",cn:"散步"},{kr:"술 마시다",cn:"喝酒"},
     {kr:"한국 음식",cn:"韩国料理"},{kr:"불고기",cn:"烤肉"},{kr:"떡볶이",cn:"炒年糕"}
 ];
 
+// 本地存储变量
+let customWords = JSON.parse(localStorage.getItem('customKrWords')) || []; // 用户自定义新词
 let collectList = JSON.parse(localStorage.getItem('krCollect')) || [];
 let errorList = JSON.parse(localStorage.getItem('krError')) || [];
 let currentDictWord = null;
+let dictTotalCount = 20; // 默认听写20题
+let correctThisRound = []; // 本轮听写答对单词，本轮不再出现
+let roundWordPool = []; // 本轮听写单词池
 
-function switchTab(tabId) {
-    document.querySelectorAll('.tab-content').forEach(item => item.classList.remove('active'));
-    document.getElementById(tabId).classList.add('active');
+// 合并内置词+用户自定义词 = 完整总词库
+function getAllWordData(){
+    return [...baseWordData, ...customWords];
+}
+
+// 页面切换（修复返回首页逻辑）
+function switchPage(pageId){
+    document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
+    document.getElementById(pageId).classList.add('active');
     window.scrollTo(0,0);
 }
 
+// 朗读语音
 function speakKorean(text) {
     const utter = new SpeechSynthesisUtterance(text);
     utter.lang = "ko-KR";
@@ -340,31 +446,54 @@ function speakChinese(text) {
     speechSynthesis.speak(utter);
 }
 
-// 渲染单词列表
+// ====================== 自主添加单词功能 ======================
+function addCustomWord(){
+    const kr = document.getElementById('newKrInput').value.trim();
+    const cn = document.getElementById('newCnInput').value.trim();
+    if(!kr || !cn){
+        alert("请完整填写韩文和中文释义！");
+        return;
+    }
+    // 去重判断
+    const allWords = getAllWordData();
+    if(allWords.some(w=>w.kr === kr)){
+        alert("该韩文单词已存在词库，无需重复添加！");
+        return;
+    }
+    customWords.push({kr,cn});
+    localStorage.setItem('customKrWords', JSON.stringify(customWords));
+    // 清空输入框、刷新列表
+    document.getElementById('newKrInput').value = "";
+    document.getElementById('newCnInput').value = "";
+    renderWordList();
+    alert("添加成功！新词已同步到单词库与听写界面");
+}
+
+// ====================== 单词库渲染（匹配截图排版） ======================
 function renderWordList() {
     const keyword = document.getElementById('searchInput').value.trim();
-    let filterList = wordData.filter(item => item.kr.includes(keyword) || item.cn.includes(keyword));
+    const allWords = getAllWordData();
+    let filterList = allWords.filter(item => item.kr.includes(keyword) || item.cn.includes(keyword));
     let htmlStr = "";
     filterList.forEach(word => {
         const isCollected = collectList.some(c => c.kr === word.kr);
         htmlStr += `
-        <div class="flex justify-between items-center py-3 px-3 rounded-xl bg-white/40 hover:bg-white/60 transition">
-            <div>
-                <p class="font-medium text-[#7859a0] text-lg">${word.kr}</p>
-                <p class="text-sm text-[#665872]">${word.cn}</p>
+        <div class="word-item">
+            <div class="word-left">
+                <div class="kr-text">${word.kr}</div>
+                <div class="cn-text">${word.cn}</div>
             </div>
-            <div class="flex gap-3">
-                <button onclick="speakKorean('${word.kr}')" class="text-[#a888c8] text-sm hover:underline">朗读</button>
-                <button onclick="toggleCollect('${word.kr}','${word.cn}')" class="text-sm ${isCollected ? 'text-rose-400' : 'text-gray-400'}">
-                    ${isCollected ? '已收藏' : '收藏'}
-                </button>
+            <div class="word-right">
+                <span onclick="speakKorean('${word.kr}')">朗读</span>
+                <span onclick="toggleCollect('${word.kr}','${word.cn}')">${isCollected ? '已收藏' : '收藏'}</span>
             </div>
         </div>
         `
     })
-    document.getElementById('wordBox').innerHTML = htmlStr;
+    document.getElementById('wordBox').innerHTML = htmlStr || '<p class="py-10 text-center text-[var(--text-pale)]">暂无匹配单词</p>';
 }
 
+// 收藏切换
 function toggleCollect(kr, cn) {
     const idx = collectList.findIndex(item => item.kr === kr);
     idx > -1 ? collectList.splice(idx,1) : collectList.push({kr,cn});
@@ -373,18 +502,19 @@ function toggleCollect(kr, cn) {
     renderCollectPage();
 }
 
+// 收藏页面渲染
 function renderCollectPage() {
-    let htmlStr = collectList.length === 0 ? '<p class="text-center py-10 text-[#887699]">暂无收藏单词，去单词库添加吧</p>' : "";
+    let htmlStr = collectList.length === 0 ? '<p class="py-10 text-center text-[var(--text-pale)] font-eng-vintage">No collected words yet</p>' : "";
     collectList.forEach(word => {
         htmlStr += `
-        <div class="flex justify-between items-center py-3 px-3 rounded-xl bg-white/40">
-            <div>
-                <p class="font-medium text-[#7859a0]">${word.kr}</p>
-                <p class="text-sm text-[#665872]">${word.cn}</p>
+        <div class="word-item">
+            <div class="word-left">
+                <div class="kr-text">${word.kr}</div>
+                <div class="cn-text">${word.cn}</div>
             </div>
-            <div class="flex gap-3">
-                <button onclick="speakKorean('${word.kr}')" class="text-[#a888c8] text-sm">朗读</button>
-                <button onclick="toggleCollect('${word.kr}','${word.cn}')" class="text-rose-400 text-sm">取消收藏</button>
+            <div class="word-right">
+                <span onclick="speakKorean('${word.kr}')">朗读</span>
+                <span onclick="toggleCollect('${word.kr}','${word.cn}')">取消收藏</span>
             </div>
         </div>
         `
@@ -392,18 +522,19 @@ function renderCollectPage() {
     document.getElementById('collectBox').innerHTML = htmlStr;
 }
 
+// 错题页面渲染
 function renderErrorPage() {
-    let htmlStr = errorList.length === 0 ? '<p class="text-center py-10 text-[#887699]">暂无错题，开始听写练习吧</p>' : "";
+    let htmlStr = errorList.length === 0 ? '<p class="py-10 text-center text-[var(--text-pale)] font-eng-vintage">No error words yet</p>' : "";
     errorList.forEach((word, index) => {
         htmlStr += `
-        <div class="flex justify-between items-center py-3 px-3 rounded-xl bg-white/40">
-            <div>
-                <p class="font-medium text-[#7859a0]">${word.kr}</p>
-                <p class="text-sm text-[#665872]">${word.cn}</p>
+        <div class="word-item">
+            <div class="word-left">
+                <div class="kr-text">${word.kr}</div>
+                <div class="cn-text">${word.cn}</div>
             </div>
-            <div class="flex gap-3">
-                <button onclick="speakKorean('${word.kr}')" class="text-[#a888c8] text-sm">朗读</button>
-                <button onclick="deleteError(${index})" class="text-rose-400 text-sm">移除</button>
+            <div class="word-right">
+                <span onclick="speakKorean('${word.kr}')">朗读</span>
+                <span onclick="deleteError(${index})">移除</span>
             </div>
         </div>
         `
@@ -417,52 +548,104 @@ function deleteError(index) {
     renderErrorPage();
 }
 
-// 随机出题
+// ====================== 听写题量选择 ======================
+function setDictCount(num){
+    dictTotalCount = num;
+    document.getElementById('currentCountText').innerText = num;
+    // 切换按钮样式
+    document.getElementById('cnt10Btn').className = num ===10 ? "btn-purple px-6 py-2 rounded-full" : "btn-pale px-6 py-2 rounded-full";
+    document.getElementById('cnt20Btn').className = num ===20 ? "btn-purple px-6 py-2 rounded-full" : "btn-pale px-6 py-2 rounded-full";
+    // 重置本轮答对记录
+    correctThisRound = [];
+    alert(`已设置今日听写${num}题，点击下一题开始练习`);
+}
+
+// 生成本轮单词池：过滤本轮已答对单词，随机抽取指定数量
+function refreshRoundPool(){
+    const allWords = getAllWordData();
+    // 过滤掉本轮答对的单词
+    let unCorrectWords = allWords.filter(w=> !correctThisRound.some(c=>c.kr === w.kr));
+    // 如果剩余不足，说明本轮全部答对，开启循环全部单词
+    if(unCorrectWords.length === 0){
+        alert("本轮所有单词已全部答对，开始循环复习全部词汇！");
+        roundWordPool = [...allWords];
+        return;
+    }
+    // 随机打乱，截取设定题量
+    unCorrectWords.sort(()=> Math.random()-0.5);
+    roundWordPool = unCorrectWords.slice(0, dictTotalCount);
+}
+
+// 随机获取下一题
 function getRandomWord() {
-    const randomIndex = Math.floor(Math.random() * wordData.length);
-    currentDictWord = wordData[randomIndex];
+    if(roundWordPool.length === 0) refreshRoundPool();
+    // 随机从本轮池取一个
+    const randomIdx = Math.floor(Math.random() * roundWordPool.length);
+    currentDictWord = roundWordPool[randomIdx];
     document.getElementById('userInput').value = "";
     document.getElementById('answerTip').innerText = "";
+    document.getElementById('addErrBtn').classList.add('hidden');
     replayVoice();
 }
 
-// 核心更新：区分模式显示内容
+// 播报文字显示
 function replayVoice() {
     if (!currentDictWord) return alert("请先点击下一题获取单词");
     const mode = document.querySelector('input[name="voiceMode"]:checked').value;
     const tipDom = document.getElementById('answerTip');
+    tipDom.className = "text-2xl md:text-3xl font-medium h-14 text-[var(--lavender-dark)]";
     if(mode === "kor"){
         speakKorean(currentDictWord.kr);
-        tipDom.innerText = ""; // 只报韩语：隐藏答案，空白
+        tipDom.innerText = currentDictWord.kr;
     }else if(mode === "cn"){
         speakChinese(currentDictWord.cn);
-        tipDom.innerText = ""; // 只报中文：隐藏答案
+        tipDom.innerText = currentDictWord.cn;
     }else{
         speakKorean(currentDictWord.kr);
         setTimeout(()=>speakChinese(currentDictWord.cn), 800);
-        tipDom.innerText = ""; // 双语：隐藏答案
+        tipDom.innerText = currentDictWord.cn;
     }
+    document.getElementById('addErrBtn').classList.add('hidden');
 }
 
-// 核对答案
+// 核对答案（答对存入本轮已答对列表）
 function checkAnswer() {
     if (!currentDictWord) return alert("请先获取题目");
     const inputVal = document.getElementById('userInput').value.trim();
     const tipDom = document.getElementById('answerTip');
-    if (input === currentDictWord.kr || inputVal === currentDictWord.cn) {
-        tipDom.innerText = "✅ 回答正确！";
-        tipDom.className = "text-xl font-bold text-emerald-500 h-10";
-    } else {
-        tipDom.innerText = `❌ 正确：${currentDictWord.kr} / ${currentDictWord.cn}`;
-        tipDom.className = "text-xl font-bold text-rose-500 h-10";
-        if (!errorList.some(item => item.kr === currentDictWord.kr)) {
-            errorList.push(currentDictWord);
-            localStorage.setItem('krError', JSON.stringify(errorList));
-            renderErrorPage();
+    const errBtn = document.getElementById('addErrBtn');
+    if (inputVal === currentDictWord.kr || inputVal === currentDictWord.cn) {
+        tipDom.innerText = "✅ 正确：" + currentDictWord.kr + " / " + currentDictWord.cn;
+        tipDom.className = "text-2xl md:text-3xl font-medium h-14 text-emerald-600";
+        errBtn.classList.add('hidden');
+        // 标记为本轮已答对，本轮不再出现
+        if(!correctThisRound.some(w=>w.kr === currentDictWord.kr)){
+            correctThisRound.push(currentDictWord);
         }
+        // 从本轮池移除当前单词，避免重复抽取
+        roundWordPool = roundWordPool.filter(w=>w.kr !== currentDictWord.kr);
+    } else {
+        tipDom.innerText = "❌ 正确：" + currentDictWord.kr + " / " + currentDictWord.cn;
+        tipDom.className = "text-2xl md:text-3xl font-medium text-rose-500 h-14";
+        errBtn.classList.remove('hidden');
     }
 }
 
+// 手动添加当前单词至错题本
+function addCurrentToError(){
+    if(!currentDictWord) return;
+    const exist = errorList.some(x=>x.kr === currentDictWord.kr);
+    if(!exist){
+        errorList.push(currentDictWord);
+        localStorage.setItem('krError', JSON.stringify(errorList));
+        renderErrorPage();
+        alert("已添加至错题本！");
+    }else{
+        alert("该单词已存在错题本");
+    }
+}
+
+// 页面初始化
 window.onload = function(){
     renderWordList();
     renderCollectPage();
