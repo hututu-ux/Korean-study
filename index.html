@@ -1,0 +1,355 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>韩语学习</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Noto+Sans+SC:wght@300;400;500&display=swap" rel="stylesheet">
+    <style>
+        :root{
+            --bg-main: #f8f5fc;
+            --text-dark: #221828;
+            --text-light: #665872;
+            --primary-purple: #a888c8;
+            --glass-bg: rgba(255,255,255,0.65);
+            --glass-border: rgba(255,255,0.9);
+            --shadow-soft: 0 4px 20px rgba(160, 130, 190, 0.12);
+            --tag1: #e9e2f5;
+            --tag2: #f9e7ec;
+            --tag3: #e7f2ee;
+            --tag4: #e8f4f6;
+        }
+        body{
+            background-color: var(--bg-main);
+            background-image: radial-gradient(circle at 85% 30%, rgba(180,140,220,0.15) 0%, transparent 55%);
+            min-height: 100vh;
+            font-family: 'Noto Sans SC', sans-serif;
+        }
+        .font-serif-big{
+            font-family: 'Playfair Display', serif;
+        }
+        .glass-card{
+            background: var(--glass-bg);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid var(--glass-border);
+            box-shadow: var(--shadow-soft);
+            border-radius: 18px;
+        }
+        .btn-dark{
+            background-color: var(--text-dark);
+            color: white;
+            transition: 0.25s ease;
+        }
+        .btn-dark:hover{
+            opacity: 0.85;
+        }
+        .btn-light{
+            background: rgba(255,255,0.7);
+            border: 1px solid rgba(180,140,220,0.25);
+            color: var(--text-dark);
+        }
+        .tab-content{display:none;}
+        .tab-content.active{display:block;}
+        .bottom-tag{
+            border-radius: 999px;
+            padding: 6px 14px;
+            font-size: 13px;
+        }
+    </style>
+</head>
+<body class="pb-24 px-4 md:px-8 lg:px-16">
+    <div class="max-w-6xl mx-auto pt-8 md:pt-12">
+        <header class="grid md:grid-cols-2 gap-8 items-center mb-12">
+            <div>
+                <p class="text-xs tracking-wide text-[#887699] mb-3 inline-block px-3 py-1 rounded-full bg-white/60">维他命韩语1 · 单词学习工具</p>
+                <h1 class="font-serif-big text-7xl md:text-8xl text-[#221828] leading-none">韩语学习</h1>
+                <p class="text-2xl text-[#9476bc] my-4 font-light">Easy Korean with vocabulary & dictation</p>
+                <p class="text-sm text-[#665872] max-w-md leading-relaxed mb-7">
+                    完整收录维他命韩语1 Read the Words全词汇，支持单词朗读、听写自测、收藏、错题本，本地永久保存学习记录。
+                </p>
+                <div class="flex gap-4 flex-wrap">
+                    <button onclick="switchTab('wordList')" class="btn-dark px-6 py-3 rounded-full text-sm flex items-center gap-2">
+                        进入单词库 <span>→</span>
+                    </button>
+                    <button onclick="switchTab('dictation')" class="btn-light px-6 py-3 rounded-full text-sm">单词听写练习</button>
+                </div>
+            </div>
+            <div class="grid grid-cols-2 gap-3">
+                <div onclick="switchTab('wordList')" class="glass-card p-4 cursor-pointer hover:scale-[1.02] transition-transform" style="background:rgba(233,226,245,0.7);">
+                    <p class="text-xs text-[#776294] mb-1">单词库</p>
+                    <p class="font-medium text-sm">完整课本词汇</p>
+                    <p class="text-[10px] text-[#887699] mt-1">朗读 / 搜索 / 收藏</p>
+                </div>
+                <div onclick="switchTab('dictation')" class="glass-card p-4 cursor-pointer hover:scale-[1.02] transition-transform" style="background:rgba(249,231,236,0.7);">
+                    <p class="text-xs text-[#96627b] mb-1">单词听写</p>
+                    <p class="font-medium text-sm">中韩双语播报</p>
+                    <p class="text-[10px] text-[#a07086] mt-1">三种听力模式自测</p>
+                </div>
+                <div onclick="switchTab('collect')" class="glass-card p-4 cursor-pointer hover:scale-[1.02] transition-transform" style="background:rgba(231,242,238,0.7);">
+                    <p class="text-xs text-[#578a78] mb-1">我的收藏</p>
+                    <p class="font-medium text-sm">标记重点单词</p>
+                    <p class="text-[10px] text-[#699c8a] mt-1">本地永久保存</p>
+                </div>
+                <div onclick="switchTab('error')" class="glass-card p-4 cursor-pointer hover:scale-[1.02] transition-transform" style="background:rgba(232,244,246,0.7);">
+                    <p class="text-xs text-[#4e8890] mb-1">错题本</p>
+                    <p class="font-medium text-sm">自动收纳错题</p>
+                    <p class="text-[10px] text-[#609ca4] mt-1">反复巩固薄弱词</p>
+                </div>
+            </div>
+        </header>
+        <main>
+            <div id="wordList" class="tab-content active">
+                <div class="glass-card p-5 md:p-7">
+                    <div class="flex justify-between items-center mb-5 flex-wrap gap-3">
+                        <span class="text-lg font-medium text-[#221828]">维他命韩语1 · 全词汇表</span>
+                        <input type="text" id="searchInput" placeholder="搜索韩文 / 中文" class="bg-white/70 border border-purple-200 rounded-full px-4 py-2 text-sm w-full md:w-1/3 outline-none focus:border-[#a888c8]" oninput="renderWordList()">
+                    </div>
+                    <div id="wordBox" class="space-y-2 max-h-[60vh] overflow-y-auto pr-2"></div>
+                </div>
+            </div>
+            <div id="dictation" class="tab-content mt-8">
+                <div class="glass-card p-5 md:p-7 max-w-2xl mx-auto">
+                    <div class="text-lg font-medium text-[#221828] mb-4">单词听写练习</div>
+                    <div class="flex gap-4 text-sm mb-6 flex-wrap text-[#554466]">
+                        <label class="flex items-center gap-2 cursor-pointer">
+                            <input type="radio" name="voiceMode" value="kor" checked class="accent-[#a888c8]"> 只播报韩语
+                        </label>
+                        <label class="flex items-center gap-2 cursor-pointer">
+                            <input type="radio" name="voiceMode" value="cn" class="accent-[#a888c8]"> 只播报中文
+                        </label>
+                        <label class="flex items-center gap-2 cursor-pointer">
+                            <input type="radio" name="voiceMode" value="all" class="accent-[#a888c8]"> 中韩双语播报
+                        </label>
+                    </div>
+                    <div class="bg-white/50 rounded-2xl p-8 text-center">
+                        <p id="answerTip" class="text-xl font-bold h-10"></p>
+                        <input type="text" id="userInput" class="w-full rounded-full border border-purple-200 bg-white/80 p-4 mt-5 text-lg text-center outline-none focus:border-[#a888c8]" placeholder="输入韩文或中文释义">
+                        <div class="flex gap-3 justify-center mt-6 flex-wrap">
+                            <button onclick="getRandomWord()" class="btn-dark px-5 py-2.5 rounded-full text-sm">下一题</button>
+                            <button onclick="checkAnswer()" class="bg-green-500 text-white px-5 py-2.5 rounded-full text-sm hover:opacity-85 transition">确认答案</button>
+                            <button onclick="replayVoice()" class="bg-white/70 border border-gray-200 px-5 py-2.5 rounded-full text-sm">重播发音</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div id="collect" class="tab-content mt-8">
+                <div class="glass-card p-5 md:p-7 max-w-2xl mx-auto">
+                    <div class="text-lg font-medium text-[#221828] mb-4">我的收藏单词</div>
+                    <div id="collectBox" class="space-y-2 max-h-[60vh] overflow-y-auto pr-2"></div>
+                </div>
+            </div>
+            <div id="error" class="tab-content mt-8">
+                <div class="glass-card p-5 md:p-7 max-w-2xl mx-auto">
+                    <div class="text-lg font-medium text-[#221828] mb-4">错题本</div>
+                    <div id="errorBox" class="space-y-2 max-h-[60vh] overflow-y-auto pr-2"></div>
+                </div>
+            </div>
+        </main>
+        <footer class="fixed bottom-0 left-0 right-0 bg-white/70 backdrop-blur-md py-3 border-t border-purple-100">
+            <div class="max-w-6xl mx-auto px-4 flex gap-2 justify-center flex-wrap">
+                <span onclick="switchTab('wordList')" class="bottom-tag cursor-pointer" style="background:var(--tag1);color:#654b88;">单词库</span>
+                <span onclick="switchTab('dictation')" class="bottom-tag cursor-pointer" style="background:var(--tag2);color:#925772;">单词听写</span>
+                <span onclick="switchTab('collect')" class="bottom-tag cursor-pointer" style="background:var(--tag3);color:#487c6a;">我的收藏</span>
+                <span onclick="switchTab('error')" class="bottom-tag cursor-pointer" style="background:var(--tag4);color:#3d7981;">错题本</span>
+            </div>
+        </footer>
+    </div>
+<script>
+const wordData = [
+    {kr:"커피",cn:"咖啡"},{kr:"스키",cn:"滑雪板"},{kr:"토끼",cn:"兔子"},{kr:"토마토",cn:"西红柿"},
+    {kr:"피자",cn:"披萨"},{kr:"포도",cn:"葡萄"},{kr:"기차",cn:"火车"},{kr:"치마",cn:"裙子"},
+    {kr:"야구",cn:"棒球"},{kr:"여우",cn:"狐狸"},{kr:"요가",cn:"瑜伽"},{kr:"요리사",cn:"厨师"},
+    {kr:"우유",cn:"牛奶"},{kr:"우표",cn:"邮票"},{kr:"뉴스",cn:"新闻"},{kr:"티슈",cn:"纸巾"},
+    {kr:"가위",cn:"剪刀"},{kr:"의사",cn:"医生"},{kr:"의자",cn:"椅子"},{kr:"이야기",cn:"聊天"},
+    {kr:"왜",cn:"为什么"},{kr:"화가",cn:"画家"},{kr:"사과",cn:"苹果"},{kr:"귀",cn:"耳朵"},
+    {kr:"시계",cn:"钟表"},{kr:"세계",cn:"世界"},{kr:"돼지",cn:"猪"},{kr:"스웨터",cn:"毛衣"},
+    {kr:"눈",cn:"眼睛"},{kr:"문",cn:"门"},{kr:"말",cn:"马"},{kr:"물",cn:"水"},
+    {kr:"곰",cn:"熊"},{kr:"공",cn:"球"},{kr:"밤",cn:"夜晚"},{kr:"방",cn:"房间"},
+    {kr:"반지",cn:"戒指"},{kr:"발",cn:"脚"},{kr:"셋",cn:"三"},{kr:"빵",cn:"面包"},
+    {kr:"산",cn:"山"},{kr:"얼굴",cn:"脸"},{kr:"엄마",cn:"妈妈"},{kr:"병원",cn:"医院"},
+    {kr:"수박",cn:"西瓜"},{kr:"밖",cn:"外面"},{kr:"부엌",cn:"厨房"},{kr:"받침",cn:"收音"},
+    {kr:"빗",cn:"梳子"},{kr:"옷",cn:"衣服"},{kr:"버섯",cn:"蘑菇"},{kr:"낮",cn:"白天"},
+    {kr:"컵",cn:"杯子"},{kr:"꽃",cn:"花"},{kr:"앞",cn:"前面"},{kr:"뒤",cn:"后面"},
+    {kr:"무릎",cn:"膝盖"},{kr:"있다",cn:"有、在"},
+    {kr:"안녕하세요",cn:"你好"},{kr:"안녕히 가세요",cn:"再见（对方离开）"},
+    {kr:"안녕히 계세요",cn:"再见（你离开）"},{kr:"만나서 반갑습니다",cn:"见到你很高兴"},
+    {kr:"고맙습니다",cn:"谢谢"},{kr:"감사합니다",cn:"非常感谢"},{kr:"죄송합니다",cn:"对不起"},
+    {kr:"미안합니다",cn:"抱歉"},{kr:"괜찮습니다",cn:"没关系"},{kr:"네",cn:"是的"},
+    {kr:"아니요",cn:"不是"},{kr:"가다",cn:"去"},{kr:"오다",cn:"来"},{kr:"자다",cn:"睡觉"},
+    {kr:"보다",cn:"看"},{kr:"먹다",cn:"吃"},{kr:"읽다",cn:"读"},{kr:"공부하다",cn:"学习"},
+    {kr:"좋다",cn:"好、喜欢"},{kr:"크다",cn:"大"},{kr:"작다",cn:"小"},{kr:"많다",cn:"多"},
+    {kr:"적다",cn:"少"},{kr:"재미있다",cn:"有趣"},{kr:"재미없다",cn:"无聊"},
+    {kr:"한국/한국사람",cn:"韩国/韩国人"},{kr:"중국/중국사람",cn:"中国/中国人"},
+    {kr:"일본/일본사람",cn:"日本/日本人"},{kr:"몽골/몽골사람",cn:"蒙古/蒙古人"},
+    {kr:"러시아/러시아사람",cn:"俄罗斯/俄罗斯人"},{kr:"베트남/베트남사람",cn:"越南/越南人"},
+    {kr:"영국/영국사람",cn:"英国/英国人"},{kr:"독일/독일사람",cn:"德国/德国人"},
+    {kr:"미국/미국사람",cn:"美国/美国人"},{kr:"할아버지",cn:"爷爷外公"},
+    {kr:"할머니",cn:"奶奶外婆"},{kr:"아버지",cn:"爸爸"},{kr:"어머니",cn:"妈妈"},
+    {kr:"오빠",cn:"女生称呼哥哥"},{kr:"언니",cn:"女生称呼姐姐"},{kr:"나",cn:"我"},
+    {kr:"동생",cn:"弟妹"},{kr:"회사원",cn:"公司职员"},{kr:"가수",cn:"歌手"},
+    {kr:"의사",cn:"医生"},{kr:"간호사",cn:"护士"},{kr:"은행원",cn:"银行职员"},
+    {kr:"주부",cn:"家庭主妇"},{kr:"사업가",cn:"商人"},{kr:"경찰관",cn:"警察"},
+    {kr:"미용사",cn:"理发师"},{kr:"요리사",cn:"厨师"},
+    {kr:"하나",cn:"1"},{kr:"둘",cn:"2"},{kr:"셋",cn:"3"},{kr:"넷",cn:"4"},{kr:"다섯",cn:"5"},
+    {kr:"여섯",cn:"6"},{kr:"일곱",cn:"7"},{kr:"여덟",cn:"8"},{kr:"아홉",cn:"9"},{kr:"열",cn:"10"},
+    {kr:"한 시",cn:"一点"},{kr:"두 시",cn:"两点"},{kr:"열 시 오십 분",cn:"十点五十分"},
+    {kr:"아침",cn:"早上"},{kr:"점심",cn:"中午"},{kr:"저녁",cn:"傍晚"},{kr:"밤",cn:"夜晚"},
+    {kr:"일요일",cn:"周日"},{kr:"월요일",cn:"周一"},{kr:"화요일",cn:"周二"},{kr:"수요일",cn:"周三"},
+    {kr:"목요일",cn:"周四"},{kr:"금요일",cn:"周五"},{kr:"토요일",cn:"周六"},
+    {kr:"오늘",cn:"今天"},{kr:"어제",cn:"昨天"},{kr:"내일",cn:"明天"},
+    {kr:"지난 주",cn:"上周"},{kr:"이번 주",cn:"这周"},{kr:"다음 주",cn:"下周"},
+    {kr:"등산하다",cn:"爬山"},{kr:"여행하다",cn:"旅行"},{kr:"낚시하다",cn:"钓鱼"},{kr:"책 읽다",cn:"看书"},
+    {kr:"영화 보다",cn:"看电影"},{kr:"쇼핑하다",cn:"购物"},{kr:"샤워하다",cn:"洗澡"},
+    {kr:"위",cn:"上面"},{kr:"아래",cn:"下面"},{kr:"앞",cn:"前面"},{kr:"뒤",cn:"后面"},
+    {kr:"안",cn:"里面"},{kr:"밖",cn:"外面"},{kr:"옆",cn:"旁边"},{kr:"사이",cn:"中间"},
+    {kr:"교실",cn:"教室"},{kr:"문",cn:"门"},{kr:"창문",cn:"窗户"},{kr:"칠판",cn:"黑板"},
+    {kr:"지도",cn:"地图"},{kr:"시계",cn:"钟表"},{kr:"달력",cn:"日历"},{kr:"컴퓨터",cn:"电脑"},
+    {kr:"책상",cn:"书桌"},{kr:"의자",cn:"椅子"},{kr:"공책",cn:"笔记本"},{kr:"연필",cn:"铅笔"},
+    {kr:"볼펜",cn:"圆珠笔"},{kr:"사전",cn:"词典"},{kr:"핸드폰",cn:"手机"},
+    {kr:"도서관",cn:"图书馆"},{kr:"운동장",cn:"操场"},{kr:"백화점",cn:"百货商店"},
+    {kr:"편의점",cn:"便利店"},{kr:"서점",cn:"书店"},{kr:"은행",cn:"银行"},
+    {kr:"우체국",cn:"邮局"},{kr:"영화관",cn:"电影院"},
+    {kr:"오른쪽",cn:"右边"},{kr:"왼쪽",cn:"左边"},{kr:"건너편",cn:"对面"},
+    {kr:"봄",cn:"春天"},{kr:"여름",cn:"夏天"},{kr:"가을",cn:"秋天"},{kr:"겨울",cn:"冬天"},
+    {kr:"덥다",cn:"热"},{kr:"춥다",cn:"맑다",cn:"晴朗"},{kr:"흐리다",cn:"阴天"},
+    {kr:"비가 오다",cn:"下雨"},{kr:"눈이 오다",cn:"下雪"},
+    {kr:"노래 부르다",cn:"唱歌"},{kr:"춤추다",cn:"跳舞"},{kr:"기타 치다",cn:"弹吉他"},
+    {kr:"그림 그리다",cn:"画画"},{kr:"사진 찍다",cn:"拍照"},{kr:"배드민턴 치다",cn:"羽毛球"},
+    {kr:"게임 하다",cn:"玩游戏"},{kr:"인터넷 하다",cn:"上网"},{kr:"산책하다",cn:"散步"},
+    {kr:"술 마시다",cn:"喝酒"},{kr:"한국 음식",cn:"韩餐"},{kr:"불고기",cn:"烤肉"},{kr:"떡볶이",cn:"炒年糕"}
+];
+let collectList = JSON.parse(localStorage.getItem('krCollect')) || [];
+let errorList = JSON.parse(localStorage.getItem('krError')) || [];
+let currentDictWord = null;
+function switchTab(tabId) {
+    document.querySelectorAll('.tab-content').forEach(item => item.classList.remove('active'));
+    document.getElementById(tabId).classList.add('active');
+    window.scrollTo(0,0);
+}
+function speakKorean(text) {
+    const utter = new SpeechSynthesisUtterance(text);
+    utter.lang = "ko-KR";
+    speechSynthesis.speak(utter);
+}
+function speakChinese(text) {
+    const utter = new SpeechSynthesisUtterance(text);
+    utter.lang = "zh-CN";
+    speechSynthesis.speak(utter);
+}
+function renderWordList() {
+    const keyword = document.getElementById('searchInput').value.trim();
+    let filterList = wordData.filter(item => item.kr.includes(keyword) || item.cn.includes(keyword));
+    let htmlStr = "";
+    filterList.forEach(word => {
+        const isCollected = collectList.some(c => c.kr === word.kr);
+        htmlStr += `
+        <div class="flex justify-between items-center py-3 px-3 rounded-xl bg-white/40 hover:bg-white/60 transition">
+            <div>
+                <p class="font-medium text-[#7859a0] text-lg">${word.kr}</p>
+                <p class="text-sm text-[#665872]">${word.cn}</p>
+            </div>
+            <div class="flex gap-3">
+                <button onclick="speakKorean('${word.kr}')" class="text-[#a888c8] text-sm hover:underline">朗读</button>
+                <button onclick="toggleCollect('${word.kr}','${word.cn}')" class="text-sm ${isCollected ? 'text-rose-400' : 'text-gray-400'}">
+                    ${isCollected ? '已收藏' : '收藏'}
+                </button>
+            </div>
+        </div>
+        `
+    })
+    document.getElementById('wordBox').innerHTML = htmlStr;
+}
+function toggleCollect(kr, cn) {
+    const idx = collectList.findIndex(item => item.kr === kr);
+    idx > -1 ? collectList.splice(idx,1) : collectList.push({kr,cn});
+    localStorage.setItem('krCollect', JSON.stringify(collectList));
+    renderWordList();
+    renderCollectPage();
+}
+function renderCollectPage() {
+    let htmlStr = collectList.length === 0 ? '<p class="text-center py-10 text-[#887699]">暂无收藏单词</p>' : "";
+    collectList.forEach(word => {
+        htmlStr += `
+        <div class="flex justify-between items-center py-3 px-3 rounded-xl bg-white/40">
+            <div>
+                <p class="font-medium text-[#7859a0]">${word.kr}</p>
+                <p class="text-sm text-[#665872]">${word.cn}</p>
+            </div>
+            <div class="flex gap-3">
+                <button onclick="speakKorean('${word.kr}')" class="text-[#a888c8] text-sm">朗读</button>
+                <button onclick="toggleCollect('${word.kr}','${word.cn}')" class="text-rose-400 text-sm">取消收藏</button>
+            </div>
+        </div>
+        `
+    })
+    document.getElementById('collectBox').innerHTML = htmlStr;
+}
+function renderErrorPage() {
+    let htmlStr = errorList.length === 0 ? '<p class="text-center py-10 text-[#887699]">暂无错题</p>' : "";
+    errorList.forEach((word, index) => {
+        htmlStr += `
+        <div class="flex justify-between items-center py-3 px-3 rounded-xl bg-white/40">
+            <div>
+                <p class="font-medium text-[#7859a0]">${word.kr}</p>
+                <p class="text-sm text-[#665872]">${word.cn}</p>
+            </div>
+            <div class="flex gap-3">
+                <button onclick="speakKorean('${word.kr}')" class="text-[#a888c8] text-sm">朗读</button>
+                <button onclick="deleteError(${index})" class="text-rose-400 text-sm">移除</button>
+            </div>
+        </div>
+        `
+    })
+    document.getElementById('errorBox').innerHTML = htmlStr;
+}
+function deleteError(index) {
+    errorList.splice(index,1);
+    localStorage.setItem('krError', JSON.stringify(errorList));
+    renderErrorPage();
+}
+function getRandomWord() {
+    const randomIndex = Math.floor(Math.random() * wordData.length);
+    currentDictWord = wordData[randomIndex];
+    document.getElementById('userInput').value = "";
+    document.getElementById('answerTip').innerText = "";
+    replayVoice();
+}
+function replayVoice() {
+    if (!currentDictWord) return alert("请先点击下一题");
+    const mode = document.querySelector('input[name="voiceMode"]:checked').value;
+    if (mode === "kor") speakKorean(currentDictWord.kr);
+    else if (mode === "cn") speakChinese(currentDictWord.cn);
+    else {
+        speakKorean(currentDictWord.cn);
+        setTimeout(()=>speakChinese(currentDictWord.cn), 800);
+    }
+}
+function checkAnswer() {
+    if (!currentDictWord) return alert("请先获取题目");
+    const inputVal = document.getElementById('userInput').value.trim();
+    const tipDom = document.getElementById('answerTip');
+    if (inputVal === currentDictWord.kr || inputVal === currentDictWord.cn) {
+        tipDom.innerText = "✅ 回答正确！";
+        tipDom.className = "text-xl font-bold text-emerald-500 h-10";
+    } else {
+        tipDom.innerText = `❌ 正确：${currentDictWord.kr} / ${currentDictWord.cn}`;
+        tipDom.className = "text-xl font-bold text-rose-500 h-10";
+        if (!errorList.some(item => item.kr === currentDictWord.kr)) {
+            errorList.push(currentDictWord);
+            localStorage.setItem('krError', JSON.stringify(errorList));
+            renderErrorPage();
+        }
+    }
+}
+window.onload = function(){
+    renderWordList();
+    renderCollectPage();
+    renderErrorPage();
+}
+</script>
+</body>
+</html>
